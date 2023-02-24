@@ -59,31 +59,37 @@ class Caesar_Cipher():
 
     def proceed(self):
         connected = True
-        while connected:
+        while connected or ValueError:
             print(self.host())
-            choice = input('\nWhat would you like to do [enter "e" for encryption or "d" for decryption]? ').lower()
-            if choice == 'e':
-                secret_word = input('Would you be so kind to entering the secret word please: ')
-                ciphertext = self.encrypt(secret_word)
-                print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
-which is {ciphertext}''')
-            elif choice == 'd':
-                ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
-If you just press enter I will use the ciphertext store in the backup if there is any.''')
-                if ciphert == '':
-                    with open('secret_word.txt', 'r') as f:
-                        ciphert = f.read()
-                    original_w = self.dencrypt(ciphert)
-                    print(f'Very well here is the secret word {original_w}')
-                else:
-                    original_word = self.dencrypt(ciphert)
-                    print(f'Very well here is the secret word {original_word}')
-            do_now = input('''What would you like to do now? If you wish to restart the app press "n" and if you wish to exit the program
-            press any other key''')
-            if do_now == 'n':
-                connected = True
+            try:
+                choice = input('\nWhat would you like to do [enter "e" for encryption or "d" for decryption]? ').lower()
+                if choice not in ['e','d']:
+                    raise ValueError('Please you must enter "e" or "d"')
+            except ValueError as err:
+                print(f'{err}')
             else:
-                connected = False
+                if choice == 'e':
+                    secret_word = input('Would you be so kind to entering the secret word please: ')
+                    ciphertext = self.encrypt(secret_word)
+                    print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
+    which is {ciphertext}''')
+                elif choice == 'd':
+                    ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
+    If you just press enter I will use the ciphertext store in the backup if there is any.''')
+                    if ciphert == '':
+                        with open('secret_word.txt', 'r') as f:
+                            ciphert = f.read()
+                        original_w = self.dencrypt(ciphert)
+                        print(f'Very well here is the secret word {original_w}')
+                    else:
+                        original_word = self.dencrypt(ciphert)
+                        print(f'Very well here is the secret word {original_word}')
+                do_now = input('''What would you like to do now? If you wish to restart the app press "n" and if you wish to exit the program
+                press any other key''')
+                if do_now == 'n':
+                    connected = True
+                else:
+                    connected = False
 
 
 
@@ -101,5 +107,9 @@ if __name__ == '__main__':
 
     encryptor = Caesar_Cipher(5)
     encryptor.proceed()
+
+
+# ERROR HANDLING AND ENHANCE A LITTLE
+
 
 
