@@ -1,4 +1,5 @@
 import string
+import datetime
 
 
 class Caesar_Cipher():
@@ -8,12 +9,14 @@ class Caesar_Cipher():
     def __init__(self, key):
         self.key = key
 
+    def host(self):
+        current_time = datetime.datetime.now()
     def encrypt(self):
         pass
     def decrypt(self):
         pass
 
 
-
+print(datetime.datetime.now())
 
 
