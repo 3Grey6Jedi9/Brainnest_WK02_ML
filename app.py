@@ -21,6 +21,8 @@ class Caesar_Cipher():
         elif  22 <= current_time.hour and current_time.hour < 6:
             moment = 'night'
         return f'''Good {moment}, I will help you encrypting or decrypting the message you desire'''
+
+    
     def encrypt(self, word):
         ciphertext = []
         for w in word.upper():
@@ -53,6 +55,6 @@ class Caesar_Cipher():
 
 encryptor = Caesar_Cipher(5)
 
-print(encryptor.decrypt('fuuqj'))
+print(encryptor.decrypt())
 
 
