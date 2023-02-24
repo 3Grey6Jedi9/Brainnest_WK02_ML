@@ -4,7 +4,7 @@ import datetime
 
 class Caesar_Cipher():
 
-    british_alphabet = list(string.ascii_uppercase)
+    british_alphabet = list(string.ascii_uppercase*2)
 
     def __init__(self, key):
         self.key = key
@@ -22,13 +22,17 @@ class Caesar_Cipher():
             moment = 'night'
         return f'''Good {moment}, I will help you encrypting or decrypting the message you desire'''
     def encrypt(self, word):
-        global british_alphabet
         ciphertext = []
         for w in word.upper():
-            for l in british_alphabet:
-                
-
-
+            for l in Caesar_Cipher.british_alphabet:
+                if w == l:
+                    initial_index = Caesar_Cipher.british_alphabet.index(l)
+                    final_index = initial_index + self.key
+                    ciphertext.append(Caesar_Cipher.british_alphabet[final_index])
+                    break
+                else:
+                    continue
+        return ciphertext
 
     def decrypt(self):
         pass
@@ -38,6 +42,6 @@ class Caesar_Cipher():
 
 encryptor = Caesar_Cipher(5)
 
-print(Caesar_Cipher.british_alphabet)
+print(encryptor.encrypt('apple'))
 
 
