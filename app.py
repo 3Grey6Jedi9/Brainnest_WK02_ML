@@ -41,6 +41,7 @@ class Caesar_Cipher():
 
     def dencrypt(self, ciphertext):
         original_word = []
+        original_word_str = ''
         for w in ciphertext.upper():
             for l in Caesar_Cipher.british_alphabet:
                 if w == l:
@@ -50,7 +51,9 @@ class Caesar_Cipher():
                     break
                 else:
                     continue
-        return original_word
+        for w in original_word:
+            original_word_str += w
+        return original_word_str.capitalize()
 
     def proceed(self):
         pass
