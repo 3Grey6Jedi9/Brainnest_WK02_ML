@@ -20,7 +20,7 @@ class Caesar_Cipher():
             moment = 'evening'
         elif  22 <= current_time.hour and current_time.hour < 6:
             moment = 'night'
-        return f'''Good {moment}, I will help you encrypting or decrypting the message you desire'''
+        return f'''\nGood {moment}, I will help you encrypting or decrypting the message you desire'''
 
 
     def encrypt(self, word):
@@ -37,6 +37,8 @@ class Caesar_Cipher():
                     continue
         for w in ciphertext:
             ciphertext_string += w
+        with open ('secret_word.txt','w') as f:
+            f.write(ciphertext_string)
         return ciphertext_string.capitalize()
 
     def dencrypt(self, ciphertext):
@@ -56,11 +58,48 @@ class Caesar_Cipher():
         return original_word_str.capitalize()
 
     def proceed(self):
-        pass
+        connected = True
+        while connected:
+            print(self.host())
+            choice = input('\nWhat would you like to do [enter "e" for encryption or "d" for decryption]? ').lower()
+            if choice == 'e':
+                secret_word = input('Would you be so kind to entering the secret word please: ')
+                ciphertext = self.encrypt(secret_word)
+                print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
+which is {ciphertext}''')
+            elif choice == 'd':
+                ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
+If you just press enter I will use the ciphertext store in the backup if there is any.''')
+                if ciphert == '':
+                    with open('secret_word.txt', 'r') as f:
+                        ciphert = f.read()
+                    original_w = self.dencrypt(ciphert)
+                    print(f'Very well here is the secret word {original_w}')
+                else:
+                    original_word = self.dencrypt(ciphert)
+                    print(f'Very well here is the secret word {original_word}')
+            do_now = input('''What would you like to do now? If you wish to restart the app press "n" and if you wish to exit the program
+            press any other key''')
+            if do_now == 'n':
+                connected = True
+            else:
+                connected = False
 
 
-encryptor = Caesar_Cipher(5)
 
-print(encryptor.encrypt('apple'))
+
+
+
+
+
+
+
+
+
+
+if __name__ == '__main__':
+
+    encryptor = Caesar_Cipher(5)
+    encryptor.proceed()
 
 
