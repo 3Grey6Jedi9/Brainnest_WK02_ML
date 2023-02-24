@@ -22,9 +22,10 @@ class Caesar_Cipher():
             moment = 'night'
         return f'''Good {moment}, I will help you encrypting or decrypting the message you desire'''
 
-    
+
     def encrypt(self, word):
         ciphertext = []
+        ciphertext_string = ''
         for w in word.upper():
             for l in Caesar_Cipher.british_alphabet:
                 if w == l:
@@ -34,9 +35,11 @@ class Caesar_Cipher():
                     break
                 else:
                     continue
-        return ciphertext
+        for w in ciphertext:
+            ciphertext_string += w
+        return ciphertext_string.capitalize()
 
-    def decrypt(self, ciphertext):
+    def dencrypt(self, ciphertext):
         original_word = []
         for w in ciphertext.upper():
             for l in Caesar_Cipher.british_alphabet:
@@ -55,6 +58,6 @@ class Caesar_Cipher():
 
 encryptor = Caesar_Cipher(5)
 
-print(encryptor.decrypt())
+print(encryptor.encrypt('apple'))
 
 
