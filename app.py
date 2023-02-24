@@ -34,14 +34,25 @@ class Caesar_Cipher():
                     continue
         return ciphertext
 
-    def decrypt(self):
-        pass
+    def decrypt(self, ciphertext):
+        original_word = []
+        for w in ciphertext.upper():
+            for l in Caesar_Cipher.british_alphabet:
+                if w == l:
+                    initial_index = Caesar_Cipher.british_alphabet.index(l)
+                    final_index = initial_index - self.key
+                    original_word.append(Caesar_Cipher.british_alphabet[final_index])
+                    break
+                else:
+                    continue
+        return original_word
+
     def proceed(self):
         pass
 
 
 encryptor = Caesar_Cipher(5)
 
-print(encryptor.encrypt('apple'))
+print(encryptor.decrypt('fuuqj'))
 
 
