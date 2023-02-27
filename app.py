@@ -1,5 +1,6 @@
 import string
 import datetime
+import sys
 
 
 class Caesar_Cipher():
@@ -69,27 +70,45 @@ class Caesar_Cipher():
                 print(f'{err}')
             else:
                 if choice == 'e':
-                    secret_word = input('Would you be so kind to entering the secret word please: ')
-                    ciphertext = self.encrypt(secret_word)
-                    print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
+                    try:
+                        secret_word = input('Would you be so kind to entering the secret word please: ')
+                        for w in secret_word:
+                            if w.upper() not in Caesar_Cipher.british_alphabet:
+                                raise ValueError('Your password must be composed by letters from the British Alphabet')
+                            else:
+                                continue
+                    except ValueError as err:
+                        print(f'{err}')
+                    else:
+                        ciphertext = self.encrypt(secret_word)
+                        print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
     which is {ciphertext}''')
                 elif choice == 'd':
-                    ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
-    If you just press enter I will use the ciphertext store in the backup if there is any.''')
-                    if ciphert == '':
-                        with open('secret_word.txt', 'r') as f:
-                            ciphert = f.read()
-                        original_w = self.dencrypt(ciphert)
-                        print(f'Very well here is the secret word {original_w}')
+                    try:
+                        ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
+Or if you just press enter I will use the ciphertext store in the backup if there is any. ''')
+                        for w in ciphert:
+                            if w.upper() not in Caesar_Cipher.british_alphabet and w != '':
+                                raise ValueError('Your password must be composed by letters from the British Alphabet')
+                            else:
+                                continue
+                    except ValueError as err:
+                        print(f'{err}')
                     else:
-                        original_word = self.dencrypt(ciphert)
-                        print(f'Very well here is the secret word {original_word}')
+                        if ciphert == '':
+                            with open('secret_word.txt', 'r') as f:
+                                ciphert = f.read()
+                            original_w = self.dencrypt(ciphert)
+                            print(f'Very well here is the secret word {original_w}')
+                        else:
+                            original_word = self.dencrypt(ciphert)
+                            print(f'Very well here is the secret word {original_word}')
                 do_now = input('''What would you like to do now? If you wish to restart the app press "n" and if you wish to exit the program
-                press any other key''')
+press any other key: ''')
                 if do_now == 'n':
                     connected = True
                 else:
-                    connected = False
+                    sys.exit()
 
 
 
@@ -109,7 +128,6 @@ if __name__ == '__main__':
     encryptor.proceed()
 
 
-# ERROR HANDLING AND ENHANCE A LITTLE
 
 
 
