@@ -82,7 +82,7 @@ class Caesar_Cipher():
                     else:
                         ciphertext = self.encrypt(secret_word)
                         print(f'''Your secret word is now encrypted and I also created a backup in case you forget the ciphertext,
-    which is {ciphertext}''')
+which is {ciphertext}''')
                 elif choice == 'd':
                     try:
                         ciphert = input('''I will need you to enter the ciphertext so I can decrypt it.
