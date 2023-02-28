@@ -2,10 +2,13 @@ import string
 import datetime
 import sys
 
-
 class Caesar_Cipher():
 
-    british_alphabet = list(string.ascii_uppercase*2)
+    british_alphabet = list(string.ascii_uppercase)
+    special_characters = [' ', ',', '.', '+', '*', '-', '_', '@', '#', '%', '&', '$', '?']
+    for s in special_characters:
+        british_alphabet.append(s)
+    british_alphabet = british_alphabet*2
 
     def __init__(self, key):
         self.key = key
@@ -74,7 +77,7 @@ class Caesar_Cipher():
                         secret_word = input('Would you be so kind to entering the secret word please: ')
                         for w in secret_word:
                             if w.upper() not in Caesar_Cipher.british_alphabet:
-                                raise ValueError('Your password must be composed by letters from the British Alphabet')
+                                raise ValueError(f'Your password must be composed by letters from the British Alphabet and you can add these special characters {Caesar_Cipher.special_characters} ')
                             else:
                                 continue
                     except ValueError as err:
@@ -89,7 +92,7 @@ which is {ciphertext}''')
 Or if you just press enter I will use the ciphertext store in the backup if there is any. ''')
                         for w in ciphert:
                             if w.upper() not in Caesar_Cipher.british_alphabet and w != '':
-                                raise ValueError('Your password must be composed by letters from the British Alphabet')
+                                raise ValueError(f'Your password must be composed by letters from the British Alphabet and you can add these special characters {Caesar_Cipher.special_characters}')
                             else:
                                 continue
                     except ValueError as err:
@@ -123,9 +126,20 @@ press any other key: ''')
 
 
 if __name__ == '__main__':
+    #print(Caesar_Cipher.british_alphabet[75])
+    while ValueError:
+        try:
+            key = int(input('Enter the key so I can configurate the encryptor: '))
+            if key not in range(1,76):
+                raise ValueError
+        except ValueError:
+            print('You must enter an integer lower than 76')
+            pass
+        else:
+            encryptor = Caesar_Cipher(key)
+            encryptor.proceed()
 
-    encryptor = Caesar_Cipher(5)
-    encryptor.proceed()
+
 
 
 
