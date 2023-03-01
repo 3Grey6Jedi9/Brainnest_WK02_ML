@@ -126,7 +126,7 @@ press any other key: ''')
 
 
 if __name__ == '__main__':
-    
+
     while ValueError:
         try:
             key = int(input('Enter the key so I can configurate the encryptor: '))
